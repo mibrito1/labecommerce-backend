@@ -1,6 +1,38 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.produtos = exports.usuarios = void 0;
+exports.procurarProdutoPorNome = exports.produtos = exports.usuarios = exports.createProducts = exports.createUser = exports.getAllProducts = exports.getAllUsers = void 0;
+const getAllUsers = () => {
+    return exports.usuarios;
+};
+exports.getAllUsers = getAllUsers;
+const getAllProducts = () => {
+    return exports.produtos;
+};
+exports.getAllProducts = getAllProducts;
+const createUser = (id, name, email, password) => {
+    const novoUsuario = {
+        id,
+        name,
+        email,
+        password,
+        createdAt: new Date().toISOString()
+    };
+    exports.usuarios.push(novoUsuario);
+    console.log("Adicionado novo usuario!");
+};
+exports.createUser = createUser;
+const createProducts = (id, name, price, description, imageUrl) => {
+    const novoProduto = {
+        id,
+        name,
+        price,
+        description,
+        imageUrl,
+    };
+    exports.produtos.push(novoProduto);
+    console.log("Adicionado novo produto!");
+};
+exports.createProducts = createProducts;
 exports.usuarios = [
     {
         id: "u001",
@@ -33,4 +65,11 @@ exports.produtos = [
         imageUrl: "https://picsum.photos/seed/Monitor/400",
     },
 ];
+const procurarProdutoPorNome = (name) => {
+    const result = exports.produtos.filter(produto => {
+        return produto.name.includes(name);
+    });
+    return result;
+};
+exports.procurarProdutoPorNome = procurarProdutoPorNome;
 //# sourceMappingURL=database.js.map
