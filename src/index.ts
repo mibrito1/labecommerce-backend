@@ -5,16 +5,16 @@ import express, { Request, Response } from "express";
 import cors from "cors";
 import { TProdutos, TUsuarios } from "./types";
 
-console.table(getAllUsers())
-console.table(getAllProducts())
+// console.table(getAllUsers())
+// console.table(getAllProducts())
 
 createUser("u003", "Ciquilana", "ciquilana@gmail.com", "cici1234")
 createProducts("prod003", "mouse pad", 55, "mouse pad com apoio ergonomico preto", "https://fotos.oceanob2b.com/High/042195.jpg?ims=150x")
 
-console.table(getAllUsers())
-console.table(getAllProducts())
+// console.table(getAllUsers())
+// console.table(getAllProducts())
 
-console.table(procurarProdutoPorNome("mouse"))
+// console.table(procurarProdutoPorNome("mouse"))
 
 const app = express();
 
@@ -79,5 +79,51 @@ app.post("/produtos", (req: Request, res: Response) => {
     produtos.push(novoProduto);
 
     res.status(201).send("Produto cadastrado com sucesso!")
+
+})
+
+app.delete("/usuarios/:id", (req: Request, res: Response) => {
+    const idToDelete = req.params.id;
+    const userIndex = usuarios.findIndex((user) => user.id === idToDelete);
+    if (userIndex >= 0) {
+        usuarios.splice(userIndex, 1);
+
+    }
+    res.status(200).send("user apagado com sucesso")
+});
+
+app.delete("/produtos/:id", (req: Request, res: Response) => {
+    const idToDelete = req.params.id;
+    const productIndex = produtos.findIndex((product) => product.id === idToDelete);
+    if (productIndex >= 0) {
+        produtos.splice(productIndex, 1);
+
+    }
+    res.status(200).send("produto apagado com sucesso")
+});
+
+app.put("/produtos/:id", (req: Request, res: Response) => {
+    const idToFind = req.params.id
+
+    const newId = req.body.newId as string | undefined
+    const newName = req.body.newName as string | undefined
+    const newPrice = req.body.newPrice as number | undefined
+    const newDescription = req.body.newDescription as string | undefined
+    const newImage = req.body.newImage as string | undefined
+
+    const result = produtos.find((produto) => {
+        return produto.id === idToFind
+    })
+
+    if (result) {
+        result.id = newId || result.id,
+            result.name = newName || result.name,
+            result.price = isNaN(Number(newPrice)) ? result.price : newPrice as number,
+            result.description = newDescription || result.description,
+            result.imageUrl = newImage || result.imageUrl
+
+    }
+    res.status(200).send("Produto atualizado com sucesso!")
+
 
 })
