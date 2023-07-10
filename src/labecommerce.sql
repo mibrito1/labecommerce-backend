@@ -1,0 +1,101 @@
+-- Active: 1689011139004@@127.0.0.1@3306
+
+-- Criação da tabela de pessoas usuárias
+
+CREATE TABLE
+    usuarios(
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        created_at TEXT NOT NULL
+    );
+
+--comando para procurar usuarios na tabela
+
+SELECT * FROM usuarios;
+
+--Populando a tabela de pessoas usuárias
+
+INSERT INTO
+    usuarios(
+        id,
+        name,
+        email,
+        password,
+        created_at
+    )
+VALUES (
+        "u001",
+        "Fulano",
+        "fulano@email.com",
+        "fulano123",
+        datetime('now')
+    ), (
+        "u002",
+        "Beltrana",
+        "beltrana@email.com",
+        "beltrana00",
+        datetime('now')
+    ), (
+        "u003",
+        "Ciclana",
+        "ciclana@email.com",
+        "cici00",
+        datetime('now')
+    );
+
+--comando para apagar tabela
+
+DROP TABLE usuarios;
+
+CREATE TABLE
+    produtos(
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        price REAL NOT NULL,
+        description TEXT NOT NULL,
+        image_url TEXT NOT NULL
+    );
+
+SELECT * FROM produtos;
+
+INSERT INTO
+    produtos (
+        id,
+        name,
+        price,
+        description,
+        image_url
+    )
+VALUES (
+        "prod001",
+        "Mouse gamer",
+        250,
+        "Melhor mouse do mercado!",
+        "https://picsum.photos/seed/Mouse%20gamer/400"
+    ), (
+        "prod002",
+        "Monitor",
+        900,
+        "Monitor LED Full HD 24 polegadas",
+        "https://picsum.photos/seed/Monitor/400"
+    ), (
+        "prod003",
+        "Monitor power black",
+        900,
+        "Monitor HD 17 polegadas",
+        "https://amazon.com.br/Monitor/900"
+    ), (
+        "prod004",
+        "pc gamer",
+        5500,
+        "MD Ryzen 7 5700G, 16GB DDR4,",
+        "https://amazon.com.br/Gamer-Mancer-Ryzen"
+    ), (
+        "prod005",
+        "computador gamer",
+        9000,
+        " GEFORCE RTX 3050 8GB, 16GB DDR4, SSD 480GB",
+        "https://pichau.com.br/computador-pichau-gamer-intel"
+    );
