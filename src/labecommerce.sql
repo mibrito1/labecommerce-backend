@@ -58,7 +58,7 @@ CREATE TABLE
         image_url TEXT NOT NULL
     );
 
-SELECT * FROM produtos;
+SELECT name, price FROM produtos;
 
 INSERT INTO
     produtos (
@@ -99,3 +99,69 @@ VALUES (
         " GEFORCE RTX 3050 8GB, 16GB DDR4, SSD 480GB",
         "https://pichau.com.br/computador-pichau-gamer-intel"
     );
+
+SELECT * FROM usuarios ;
+
+SELECT * FROM produtos;
+
+--procurando uma coisa especifica
+
+SELECT * FROM produtos WHERE id = "prd002";
+
+-- criando outro usuario
+
+INSERT INTO
+    usuarios(
+        id,
+        name,
+        email,
+        password,
+        created_at
+    )
+VALUES (
+        "u004",
+        "Marlene",
+        "marlene@gmail.com",
+        "mar1234",
+        datetime('now')
+    );
+
+INSERT INTO
+    produtos (
+        id,
+        name,
+        price,
+        description,
+        image_url
+    )
+VALUES (
+        "prod006",
+        "Placa de video",
+        580,
+        "RX580 Gaming Graphics Card 8GB",
+        "https://amazon.com.br/Graphics-Computer"
+    );
+
+--deletar um item
+
+DELETE FROM usuarios WHERE id = "u004";
+
+DELETE FROM produtos WHERE id = "prod004";
+
+UPDATE produtos
+SET
+    description = "RX580 Gaming Graphics Card 4GB"
+WHERE id = 'prod006';
+
+UPDATE produtos
+SET
+    description = "Melhor mouse do mercado!"
+WHERE id = 'prod001';
+
+UPDATE produtos
+SET
+    name = "Monitor full hd",
+    price = 999,
+    description = "Monitor LED 24 polegadas",
+    image_url = "https://picsum.photos/seed/Monitor"
+WHERE id = 'prod002';
