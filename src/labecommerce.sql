@@ -97,7 +97,7 @@ VALUES (
         "computador gamer",
         9000,
         " GEFORCE RTX 3050 8GB, 16GB DDR4, SSD 480GB",
-        "https://pichau.com.br/computador-pichau-gamer-intel"
+        'https://pichau.com.br/computador-pichau-gamer-intel'
     );
 
 SELECT * FROM usuarios ;
@@ -106,7 +106,7 @@ SELECT * FROM produtos;
 
 --procurando uma coisa especifica
 
-SELECT * FROM produtos WHERE id = "prd002";
+SELECT * FROM produtos WHERE name LIKE '%mouse%';
 
 -- criando outro usuario
 
@@ -165,3 +165,51 @@ SET
     description = "Monitor LED 24 polegadas",
     image_url = "https://picsum.photos/seed/Monitor"
 WHERE id = 'prod002';
+
+--purchases é pedido, entao essa e´a tabela de pedidos
+
+-- relaçao de 1/m com FK
+
+CREATE TABLE
+    purchases (
+        id TEXT PRIMARY KEY UNIQUE NOT NULL,
+        buyer TEXT NOT NULL,
+        total_price REAL NOT NULL,
+        created_at TEXT NOT NULL,
+        FOREIGN KEY (buyer) REFERENCES usuarios(id)
+    );
+
+SELECT * FROM purchases;
+
+INSERT INTO
+    purchases (
+        id,
+        buyer,
+        total_price,
+        created_at
+    )
+VALUES (
+        'p001',
+        'u001',
+        1000,
+        datetime('now')
+    ), (
+        'p002',
+        'u002',
+        890,
+        datetime('now')
+    );
+
+-- editando elementos da tabela purchase
+
+UPDATE purchases SET total_price = 1400 WHERE id = 'p001';
+
+SELECT
+    purchases.id,
+    purchases.buyer,
+    usuarios.name,
+    usuarios.email,
+    purchases.total_price,
+    purchases.created_at
+FROM usuarios
+    INNER JOIN purchases ON purchases.buyer = usuarios.id;
