@@ -189,12 +189,12 @@ INSERT INTO
         created_at
     )
 VALUES (
-        'p001',
+        'pur001',
         'u001',
         1000,
         datetime('now')
     ), (
-        'p002',
+        'pur002',
         'u002',
         890,
         datetime('now')
@@ -202,7 +202,7 @@ VALUES (
 
 -- editando elementos da tabela purchase
 
-UPDATE purchases SET total_price = 1400 WHERE id = 'p001';
+UPDATE purchases SET total_price = 1400 WHERE id = 'pur001';
 
 SELECT
     purchases.id,
@@ -213,3 +213,27 @@ SELECT
     purchases.created_at
 FROM usuarios
     INNER JOIN purchases ON purchases.buyer = usuarios.id;
+
+CREATE TABLE
+    purchases_produtos (
+        purchase_id TEXT NOT NULL,
+        produtos_id TEXT NOT NULL,
+        quantity INTEGER NOT NULL,
+        FOREIGN KEY (purchase_id) REFERENCES purchases(id),
+        FOREIGN KEY (produtos_id) REFERENCES produtos(id)
+    );
+
+-- FOREIGN KEY significa chave estrangeira
+
+-- depois populamos a tabela de relação (students_courses)
+
+SELECT *
+FROM purchases_produtos
+INSERT INTO
+    purchases_produtos (
+        purchase_id,
+        produtos_id,
+        quantity
+    )
+VALUES ('pur001', "prod001", 4), ('pur002', "prod003", 2) ('pur002', "prod004", 1) -- agora podemos visualizar os resultados juntando as três tabelas:
+    -- SELECT + INNER JOIN + INNER JOIN
